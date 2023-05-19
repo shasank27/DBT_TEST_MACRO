@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: avg_spend_2021
+    description: "Transaction details of year 2021 of each user"
+  - name: avg_spend_2022
+    description: "Transaction details of year 2022 of each user"

@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: details
+    description: "User details with transaction details"

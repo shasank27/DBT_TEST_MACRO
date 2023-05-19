@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: dbt_test
+    description: This is a replica of the Postgres database used by our app
+    database: poc
+    schema: public
+    tables:
+      - name: product
+        description: One record per order. Includes cancelled and deleted orders.
+        columns:
+          - name: product_id
+            description: Primary key of the orders table
+            tests:
+              - not_null
+          - name: category
+            description: Note that the status can change over time
+            tests:
+              - unique
+      - name: transactions
+        description: One record per order. Includes cancelled and deleted orders.
+        columns:
+          - name: created_at
+            description: Created at time of the transaction
+            tests:
+              - newer_record:
+                  test0: "CREATED_AT| '13-05-2021'"
+                  test1: "TRANSACTION_ID|NULL"
+
+models:
+  - name: transaction_details
+    description: "Transaction details of year 2021 and 2022"
+    columns:
+      - name: spend_id
+        tests:
+          - unique
+          - not_null
+  - name: transaction_details_2021
+    description: "Transaction details of year 2021"
+  - name: transaction_details_2022
+    description: "Transaction details of year 2022"
